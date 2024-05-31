@@ -25,3 +25,6 @@ Route::get('/profile', function () {
     return view('profile');
 });
 
+Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+
