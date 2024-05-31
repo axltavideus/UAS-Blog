@@ -44,5 +44,3 @@
     </script>
 </body>
 </html>
-php
-echo '<script>alert("Berhasil login");location.href="index.php";</script>';
