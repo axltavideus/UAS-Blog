@@ -21,7 +21,6 @@
         </form>
     </div>
 </nav>
-
     <div class="container d-flex flex-column">
         <div class="d-table-cell align-middle pt-3">
             <div class="card">
