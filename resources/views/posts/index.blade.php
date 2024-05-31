@@ -41,6 +41,21 @@
         </div>
     </div>
     <!-- Card End -->
+    
+    <div class="container d-flex flex-column">
+        <div class="d-table-cell align-middle pt-3">
+            <div class="mt-3">
+                <label for="postCategory" class="form-label">Category</label>
+                <select class="form-select" id="postCategory" aria-label="Post Category">
+                    <option selected>All</option>
+                    <option value="1">Technology</option>
+                    <option value="2">Lifestyle</option>
+                    <option value="3">Education</option>
+                    <option value="4">Health</option>
+                </select>
+            </div>
+        </div>
+    </div>
 
     <div class="container d-flex flex-column">
         <div class="d-table-cell align-middle pt-3">
