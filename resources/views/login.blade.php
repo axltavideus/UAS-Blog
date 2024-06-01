@@ -9,7 +9,8 @@
 </head>
 <body>
     <div class="login">
-        <form action="">
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
             <h1>Login</h1>
             <div class="input-box">
                 <input type="Email" placeholder="Email"required>

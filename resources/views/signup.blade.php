@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/signup.css">
+    <link rel="stylesheet" href="{{ asset('css/signup.css') }}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Blog | Sign-Up</title>
 </head>
 <body>
     <div class="signup">
-        <form action="">
+        <form action="{{ route('register') }}" method="POST">
+            @csrf <!-- Tambahkan CSRF token -->
             <h1>Sign-Up</h1>
             <div class="input-box">
-            <input type="Email" placeholder="Email"required>
+                <input type="email" name="email" placeholder="Email" required>
                 <i class='bx bxs-user'></i>
             </div>
             <div class="input-box">
-                <input type="User Name" placeholder="User Name"required>
+                <input type="text" name="name" placeholder="User Name" required>
             </div>
             <div class="input-box">
-                <input type="Password" placeholder="Password"require>
+                <input type="password" name="password" placeholder="Password" required>
             </div>
             <div class="input-box">
-                <input type="Confirm Password" placeholder="Confirm Passsword">
+                <input type="password" name="password_confirmation" placeholder="Confirm Password" required>
             </div>
             <input type="checkbox" onclick="showHide()">
             <div>
