@@ -93,6 +93,10 @@
                 a.className = 'dropdown-item';
                 a.href = '#';
                 a.textContent = tag;
+                // Add event listener to handle click on tag
+                a.addEventListener('click', function() {
+                    addTag(tag);
+                });
                 li.appendChild(a);
                 tagsMenu.appendChild(li);
             });
