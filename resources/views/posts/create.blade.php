@@ -38,6 +38,7 @@
 
                 <!-- Hidden input for category -->
                 <input type="hidden" id="category" name="category" required>
+                <input type="hidden" id="tags" name="tags">
 
                 <!-- Category Button -->
                 <div class="mb-3">
@@ -99,6 +100,19 @@
             // Update the category dropdown button text
             const categoryDropdownButton = document.getElementById('categoryDropdown');
             categoryDropdownButton.textContent = category.charAt(0).toUpperCase() + category.slice(1).replace('_', ' ');
+        }
+
+        function addTag(tag) {
+            const tagsInput = document.getElementById('tags');
+            let currentTags = tagsInput.value ? tagsInput.value.split(',') : [];
+            if (!currentTags.includes(tag)) {
+                currentTags.push(tag);
+            }
+            tagsInput.value = currentTags.join(',');
+            
+            // Update the tags dropdown button text
+            const tagsDropdownButton = document.getElementById('tagsDropdown');
+            tagsDropdownButton.textContent = currentTags.join(', ');
         }
     </script>
 </body>

@@ -32,6 +32,8 @@ class postController extends Controller
         $request->validate([
             'title' => 'required',
             'content' => 'required',
+            'category'=> 'required',
+            'tags'=> 'nullable|string',
         ]);
 
         Post::create($request->all());
