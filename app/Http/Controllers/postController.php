@@ -41,6 +41,15 @@ class postController extends Controller
         return redirect()->route('posts.index')->with('success', 'Post created successfully.');
     }
 
+        /**
+     * Fetch tags based on the selected category.
+     */
+    public function getTags($category)
+    {
+        $tags = Tag::where('category_id', $category)->pluck('name');
+        return response()->json($tags);
+    }
+
     /**
      * Display the specified resource.
      */

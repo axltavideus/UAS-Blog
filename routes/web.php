@@ -30,3 +30,4 @@ Route::get('/profile', function () {
     return view('profile');
 });
 
+Route::get('/categories/{category}/tags', [postController::class, 'getTags']);
