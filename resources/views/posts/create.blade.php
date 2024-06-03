@@ -28,10 +28,6 @@
                     <a class="nav-link" aria-current="page" href="/posts">Posts</a>
                     <a class="nav-link" href="#">Profile</a>
                 </div>
-                <form class="d-flex ms-auto" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
             </div>
         </nav>
         <!-- Navbar End -->        
