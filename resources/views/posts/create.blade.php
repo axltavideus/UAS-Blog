@@ -22,6 +22,19 @@
     </style>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <div class="navbar-nav">
+                    <a class="nav-link" aria-current="page" href="/posts">Posts</a>
+                    <a class="nav-link" href="#">Profile</a>
+                </div>
+                <form class="d-flex ms-auto" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+        <!-- Navbar End -->        
     <div class="container d-flex flex-column pt-6">
         <div class="d-table-cell align-middle pt-3">
         <form action="{{ route('posts.store') }}" method="POST", onsubmit="return validateTags()">
