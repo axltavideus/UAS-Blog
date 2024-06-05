@@ -45,6 +45,11 @@
                 <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
             </div>
 
+            <div class="mb-3">
+                <label for="markdown-preview" class="form-label">Markdown Preview</label>
+                <div id="markdown-preview"></div>
+            </div>
+
             <!-- Hidden input for category -->
             <input type="hidden" id="category" name="category" required>
             <input type="hidden" id="tags" name="tags" required>
