@@ -14,8 +14,8 @@
                 <a class="nav-link active" aria-current="page" href="#">Posts</a>
                 <a class="nav-link" href="#">Profile</a>
             </div>
-            <form class="d-flex ms-auto" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex ms-auto" role="search" onsubmit="event.preventDefault(); filterPosts();">
+                <input class="form-control me-2" type="search" id="searchInput" placeholder="Search" aria-label="Search" oninput="filterPosts()">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
@@ -124,20 +124,24 @@
 
             filterPosts();
         }
-
+        
         function filterPosts() {
             const selectedCategory = document.getElementById('postCategory').value;
             const selectedTag = document.getElementById('postTags').value;
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
             const postCards = document.querySelectorAll('.post-card');
 
             postCards.forEach(card => {
                 const cardCategory = card.getAttribute('data-category');
                 const cardTags = card.getAttribute('data-tags').split(',');
+                const cardTitle = card.querySelector('.card-title').textContent.toLowerCase();
+                const cardContent = card.querySelector('.card-text').textContent.toLowerCase();
 
                 const categoryMatch = (selectedCategory === 'all' || cardCategory === selectedCategory);
                 const tagMatch = (selectedTag === 'all' || cardTags.includes(selectedTag));
+                const searchMatch = (cardTitle.includes(searchInput) || cardContent.includes(searchInput));
 
-                if (categoryMatch && tagMatch) {
+                if (categoryMatch && tagMatch && searchMatch) {
                     card.style.display = 'block';
                 } else {
                     card.style.display = 'none';
