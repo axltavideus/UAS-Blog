@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\post;
 use GrahamCampbell\Markdown\Facades\Markdown;
+use Illuminate\Support\Facades\Session;
 
 class postController extends Controller
 {
@@ -73,17 +74,30 @@ class postController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('posts.edit', ['post' => $post]);
     }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+            'category' => 'required',
+            'tags' => 'nullable|string',
+        ]);
+
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->category = $request->category;
+        $post->tags = $request->tags;
+        $post->save();
+
+        return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
     }
 
     /**

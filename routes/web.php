@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\postController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -10,6 +12,9 @@ Route::get('/', function () {
 });
 
 Route::resource('posts', postController::class);
+
+Route::get('/posts/{post}/edit', [postController::class, 'edit'])->name('posts.edit');
+Route::put('/posts/{post}', [postController::class, 'update'])->name('posts.update');
 
 Route::get('/login', function () {
     return view('login');
