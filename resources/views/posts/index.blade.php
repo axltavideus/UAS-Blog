@@ -5,7 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Posts</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  </head>
+    <style>
+        .search-container {
+            position: relative;
+        }
+
+        .search-container input[type="search"] {
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .search-container input[type="search"]:hover {
+            border-color: #80bdff;
+        }
+
+        .search-container input[type="search"]:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            float: left;
+            min-width: 100%;
+            padding: 0.5rem 0;
+            margin: 0.125rem 0 0;
+            font-size: 1rem;
+            color: #212529;
+            text-align: left;
+            list-style: none;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 0.25rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: block;
+            width: 100%;
+            padding: 0.25rem 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #212529;
+            text-align: inherit;
+            white-space: nowrap;
+            background-color: transparent;
+            border: 0;
+        }
+
+        .dropdown-item:hover {
+            background-color: #e9ecef;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -14,8 +75,9 @@
                 <a class="nav-link active" aria-current="page" href="#">Posts</a>
                 <a class="nav-link" href="#">Profile</a>
             </div>
-            <form class="d-flex ms-auto" role="search" onsubmit="event.preventDefault(); filterPosts();">
-                <input class="form-control me-2" type="search" id="searchInput" placeholder="Search" aria-label="Search" oninput="filterPosts()">
+            <form class="d-flex ms-auto search-container" role="search" onsubmit="event.preventDefault(); addSearchHistory(); filterPosts();">
+                <input class="form-control me-2" type="search" id="searchInput" placeholder="Search" aria-label="Search" oninput="showSearchSuggestions()">
+                <ul class="dropdown-menu" id="searchSuggestions"></ul>
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
@@ -93,6 +155,7 @@
                     </div>
                 @endforeach
             </div>
+            <p id="no-posts-message" class="text-center mt-3" style="display: none;">Post yang kamu cari tidak ada T_T</p>
         </div>
     </div>
         <!-- Card Blog -->
@@ -124,12 +187,13 @@
 
             filterPosts();
         }
-        
+
         function filterPosts() {
             const selectedCategory = document.getElementById('postCategory').value;
             const selectedTag = document.getElementById('postTags').value;
             const searchInput = document.getElementById('searchInput').value.toLowerCase();
             const postCards = document.querySelectorAll('.post-card');
+            let visiblePostsCount = 0;
 
             postCards.forEach(card => {
                 const cardCategory = card.getAttribute('data-category');
@@ -143,11 +207,63 @@
 
                 if (categoryMatch && tagMatch && searchMatch) {
                     card.style.display = 'block';
+                    visiblePostsCount++;
                 } else {
                     card.style.display = 'none';
                 }
             });
+
+            const noPostsMessage = document.getElementById('no-posts-message');
+            if (visiblePostsCount === 0) {
+                noPostsMessage.style.display = 'block';
+            } else {
+                noPostsMessage.style.display = 'none';
+            }
         }
+
+        function addSearchHistory() {
+            const searchInput = document.getElementById('searchInput').value.trim();
+            if (!searchInput) return;
+
+            let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+            if (!searchHistory.includes(searchInput)) {
+                searchHistory.push(searchInput);
+                localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+            }
+        }
+
+        function showSearchSuggestions() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+            const suggestionsDropdown = document.getElementById('searchSuggestions');
+            suggestionsDropdown.innerHTML = '';
+
+            if (searchInput) {
+                const filteredSuggestions = searchHistory.filter(item => item.toLowerCase().includes(searchInput));
+                filteredSuggestions.forEach(suggestion => {
+                    const suggestionItem = document.createElement('li');
+                    suggestionItem.className = 'dropdown-item';
+                    suggestionItem.textContent = suggestion;
+                    suggestionItem.onclick = () => {
+                        document.getElementById('searchInput').value = suggestion;
+                        filterPosts();
+                        suggestionsDropdown.style.display = 'none';
+                    };
+                    suggestionsDropdown.appendChild(suggestionItem);
+                });
+
+                suggestionsDropdown.style.display = filteredSuggestions.length ? 'block' : 'none';
+            } else {
+                suggestionsDropdown.style.display = 'none';
+            }
+        }
+
+        document.addEventListener('click', function(event) {
+            const suggestionsDropdown = document.getElementById('searchSuggestions');
+            if (!suggestionsDropdown.contains(event.target) && !document.getElementById('searchInput').contains(event.target)) {
+                suggestionsDropdown.style.display = 'none';
+            }
+        });
     </script>
     @if(session('success'))
         <script>
