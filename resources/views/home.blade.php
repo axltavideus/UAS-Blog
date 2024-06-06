@@ -39,6 +39,22 @@
             padding: 20px 0;
             text-align: center;
         }
+        .recommendation {
+            background: #f1f1f1;
+            padding: 50px 0;
+        }
+        .recommendation h2 {
+            margin-bottom: 30px;
+        }
+        .recommendation .card {
+            background: #fff;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .footer a {
+            color: #333;
+            margin: 0 10px;
+        }
     </style>
 </head>
 <body>
@@ -55,13 +71,13 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Blog</a>
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="#">Post</a>
                     </li>
                 </ul>
             </div>
@@ -79,71 +95,185 @@
     <!-- Main Content -->
     <div class="content container">
         <h2>Artikel Terbaru</h2>
-        <div id="articles" class="row">
-            <!-- Articles will be inserted here by JavaScript -->
+        <div id="articleCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner" id="carouselItems">
+                <!-- Carousel items will be inserted here by JavaScript -->
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#articleCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#articleCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 Blog Saya. All Rights Reserved.</p>
+    <!-- Blog Section -->
+    <div class="content container mt-5">
+        <h2>Blog Mengenai Seputar Lingkungan</h2>
+        <div id="blogCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner" id="blogCarouselItems">
+                <!-- Blog carousel items will be inserted here by JavaScript -->
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#blogCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#blogCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-    </footer>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script>
-        function isAuthenticated() {
-            // Mock authentication check. Replace this with real authentication check.
-            return !!localStorage.getItem('authenticated');
-        }
+    <!-- Recommendation Section -->
+    <div class="recommendation container mt-5">
+        <h2>Rekomendasi untuk Anda</h2>
+        <div class="row" id="recommendationItems">
+            <!-- Recommendation
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2024 Blog Saya. All Rights Reserved.</p>
+        <p>
+            <a href="#">Facebook</a> | 
+            <a href="#">Twitter</a> | 
+            <a href="#">Instagram</a>
+        </p>
+    </div>
+</footer>
 
-        function handleReadMore(event, loginUrl, articleUrl) {
-            event.preventDefault();
-            if (isAuthenticated()) {
-                window.location.href = articleUrl;
-            } else {
-                window.location.href = loginUrl + "?redirect=" + encodeURIComponent(articleUrl);
-            }
-        }
-
-        const articles = [
-            {
-                title: "Hot News",
-                summary: "Ringkasan mengenai berita terkini...",
-                url: "/posts/hot-news"
-            },
-            {
-                title: "Sport",
-                summary: "Ringkasan mengenai kejadian seputar olahraga...",
-                url: "/posts/sport"
-            },
-            {
-                title: "Pendidikan",
-                summary: "Ringkasan mengenai kejadian seputar pendidikan...",
-                url: "/posts/pendidikan"
-            }
-        ];
-
-        function loadArticles() {
-            const articlesContainer = document.getElementById('articles');
-            articles.forEach(article => {
-                const articleCard = document.createElement('div');
-                articleCard.classList.add('col-md-4');
-                articleCard.innerHTML = `
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">${article.title}</h5>
-                            <p class="card-text">${article.summary}</p>
-                            <a href="#" class="btn btn-primary" onclick="handleReadMore(event, '/login', '${article.url}')">Baca Selengkapnya</a>
-                        </div>
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="loginEmail" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="loginEmail" required>
                     </div>
-                `;
-                articlesContainer.appendChild(articleCard);
-            });
-        }
+                    <div class="mb-3">
+                        <label for="loginPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
-        document.addEventListener('DOMContentLoaded', loadArticles);
-    </script>
-</body>
-</html>
+<!-- Register Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registerModalLabel">Register</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="registerName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="registerName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerEmail" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="registerEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="registerPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+    function isAuthenticated() {
+        // Mock authentication check. Replace this with real authentication check.
+        return !!localStorage.getItem('authenticated');
+    }
+
+    function handleReadMore(event, loginUrl, articleUrl) {
+        event.preventDefault();
+        if (isAuthenticated()) {
+            window.location.href = articleUrl;
+        } else {
+            window.location.href = loginUrl + "?redirect=" + encodeURIComponent(articleUrl);
+        }
+    }
+
+    const articles = [
+        {
+            title: "Hot News",
+            summary: "Ringkasan mengenai berita terkini...",
+            url: "/posts/hot-news",
+            imageUrl: "https://via.placeholder.com/1500x600?text=Hot+News"
+        },
+        {
+            title: "Sport",
+            summary: "Ringkasan mengenai kejadian seputar olahraga...",
+            url: "/posts/sport",
+            imageUrl: "https://via.placeholder.com/1500x600?text=Sport"
+        },
+        {
+            title: "Pendidikan",
+            summary: "Ringkasan mengenai kejadian seputar pendidikan...",
+            url: "/posts/pendidikan",
+            imageUrl: "https://via.placeholder.com/1500x600?text=Pendidikan"
+        }
+    ];
+
+    function loadArticles() {
+        const carouselItemsContainer = document.getElementById('carouselItems');
+        const blogCarouselItemsContainer = document.getElementById('blogCarouselItems');
+        articles.forEach((article, index) => {
+            const carouselItem = document.createElement('div');
+            carouselItem.classList.add('carousel-item');
+            const blogCarouselItem = document.createElement('div');
+            blogCarouselItem.classList.add('carousel-item');
+            if (index === 0) {
+                carouselItem.classList.add('active');
+                blogCarouselItem.classList.add('active');
+            }
+            carouselItem.innerHTML = `
+                <img src="${article.imageUrl}" class="d-block w-100" alt="${article.title}">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>${article.title}</h5>
+                    <p>${article.summary}</p>
+                    <a href="#" class="btn btn-primary" onclick="handleReadMore(event, '/login', '${article.url}')">Baca Selengkapnya</a>
+                </div>
+            `;
+            blogCarouselItem.innerHTML = `
+                <img src="${article.imageUrl}" class="d-block w-100" alt="${article.title}">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>${article.title}</h5>
+                    <p>${article.summary}</p>
+                    <a href="#" class="btn btn-primary" onclick="handleReadMore(event, '/login', '${article.url}')">Baca Selengkapnya</a>
+                </div>
+            `;
+            carouselItemsContainer.appendChild(carouselItem);
+            blogCarouselItemsContainer.appendChild(blogCarouselItem);
+        });
+        const articleCarousel = document.getElementById('articleCarousel');
+        const blogCarousel = document.getElementById('blogCarousel');
+        if (articles.length > 1) {
+            articleCarousel.classList.add('carousel');
+            blogCarousel.classList.add('carousel');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadArticles);
+</script>
