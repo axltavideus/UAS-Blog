@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\post;
+use GrahamCampbell\Markdown\Facades\Markdown;
+use Illuminate\Support\Facades\Session;
 
 class postController extends Controller
 {
@@ -13,6 +15,9 @@ class postController extends Controller
     public function index()
     {
         $posts = post::all();
+        foreach ($posts as $post) {
+            $post->content = Markdown::convertToHtml($post->content);
+        }
         return view("posts.index", compact('posts'));
     }
 
@@ -32,14 +37,21 @@ class postController extends Controller
         $request->validate([
             'title' => 'required',
             'content' => 'required',
-            'category'=> 'required',
-            'tags'=> 'nullable|string',
+            'category' => 'required',
+            'tags' => 'nullable|string',
         ]);
 
-        Post::create($request->all());
+        $post = new Post();
+        $post->title = $request->title;
+        // Store markdown content directly
+        $post->content = $request->content;
+        $post->category = $request->category;
+        $post->tags = $request->tags;
+        $post->save();
 
         return redirect()->route('posts.index')->with('success', 'Post created successfully.');
     }
+
 
         /**
      * Fetch tags based on the selected category.
@@ -53,25 +65,39 @@ class postController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Post $post)
     {
-        //
+        $post->content = Markdown::parse($post->content);
+        return view('posts.index', compact('post'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('posts.edit', ['post' => $post]);
     }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+            'category' => 'required',
+            'tags' => 'nullable|string',
+        ]);
+
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->category = $request->category;
+        $post->tags = $request->tags;
+        $post->save();
+
+        return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
     }
 
     /**

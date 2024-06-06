@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\postController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -10,6 +12,17 @@ Route::get('/', function () {
 });
 
 Route::resource('posts', postController::class);
+
+Route::get('/login', function () {
+    return view('login');
+});
+Route::post('/login', [LoginController::class, 'login'])->name('login');
+
+Route::get('/signup', function () {
+    return view('signup');
+})->name('signup');
+
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
 Route::get('/post', function () {
     return view('post');
