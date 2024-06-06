@@ -28,12 +28,18 @@ Route::get('/post', function () {
     return view('post');
 });
 
+Route::get('/posts/{post}/edit', [postController::class, 'edit'])->name('posts.edit');
+Route::put('/posts/{post}', [postController::class, 'update'])->name('posts.update');
+
 Route::get('/posts/{post}', [PostController::class, 'showPost'])->name('posts.show');
+
+Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
 Route::get('/profile', function () {
     return view('profile');
 });
-Route::get('/posts', [PostController::class, 'index'])->name('posts');
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 
 Route::get('/categories/{category}/tags', [postController::class, 'getTags']);
 
