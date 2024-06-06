@@ -27,6 +27,9 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 Route::get('/post', function () {
     return view('post');
 });
+
+Route::get('/posts/{post}', [PostController::class, 'showPost'])->name('posts.show');
+
 Route::get('/profile', function () {
     return view('profile');
 });

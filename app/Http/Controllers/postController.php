@@ -67,7 +67,7 @@ class postController extends Controller
      */
     public function show(Post $post)
     {
-        $post->content = Markdown::parse($post->content);
+        $post->content = Markdown::convertToHtml($post->content);
         return view('posts.index', compact('post'));
     }
 
