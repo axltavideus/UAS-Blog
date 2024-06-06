@@ -71,6 +71,12 @@ class postController extends Controller
         return view('posts.index', compact('post'));
     }
 
+    public function showPost($id)
+    {
+        $post = Post::findOrFail($id);
+        return view('posts.show', compact('post'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

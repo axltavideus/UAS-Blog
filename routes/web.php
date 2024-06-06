@@ -16,6 +16,8 @@ Route::resource('posts', postController::class);
 Route::get('/posts/{post}/edit', [postController::class, 'edit'])->name('posts.edit');
 Route::put('/posts/{post}', [postController::class, 'update'])->name('posts.update');
 
+Route::get('/post/{id}', [postController::class, 'showPost'])->name('post.show');
+
 Route::get('/login', function () {
     return view('login');
 });

@@ -34,7 +34,7 @@
 
     <div class="container d-flex flex-column pt-6">
         <div class="d-table-cell align-middle pt-3">
-        <form action="{{ route('posts.store') }}" method="POST", onsubmit="return validateTags()">
+        <form action="{{ route('posts.store') }}" method="POST", onsubmit="return validateTags()", onsubmit="return validateForm()">
             @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
@@ -170,6 +170,18 @@
             }
 
             return true; // Allow form submission
+        }
+
+        function validateForm() {
+            const title = document.getElementById('title').value.trim();
+            const content = document.getElementById('content').value.trim();
+            
+            if (!title || !content) {
+                alert('Title and Content are required fields.');
+                return false;
+            }
+
+            return true;
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>

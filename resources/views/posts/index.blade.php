@@ -151,7 +151,10 @@
                         <div class="card-body">
                             <h5 class="card-title">{!! $post->title !!}</h5>
                             <p class="card-text">{!! $post->content !!}</p>
-                            <a href="{{ route('posts.edit', $post) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('posts.show', $post->id) }}">View</a>
+                            <div class="d-flex justify-content-end">
+                                <a href="{{ route('posts.edit', $post) }}" class="btn btn-warning">Edit</a>
+                            </div>
                         </div>
                     </div>
                 @endforeach
