@@ -71,13 +71,13 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+                        <a class="nav-link" href="login">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a>
+                        <a class="nav-link" href="register">Register</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Post</a>
+                        <a class="nav-link" href="posts">Post</a>
                     </li>
                 </ul>
             </div>
