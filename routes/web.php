@@ -59,3 +59,5 @@ Route::get('home', function () {
 Route::get('/failed', function () {
     return view('failed');
 });
+
+Route::delete('/posts/{post}', [postController::class, 'destroy'])->name('posts.destroy');
