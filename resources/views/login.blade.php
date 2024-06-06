@@ -13,11 +13,11 @@
             @csrf
             <h1>Login</h1>
             <div class="input-box">
-                <input type="Email" placeholder="Email"required>
+                <input type="email" name="email" placeholder="Email" required>
                 <i class='bx bxs-user'></i>
             </div>
             <div class="input-box">
-                <input type="Password" id="password" placeholder="Password"required>
+                <input type="Password" id="password" name="password" placeholder="Password"required>
                 <i class='bx bxs-lock-alt' ></i>
             </div>
             <div class="showpassword">
@@ -29,7 +29,7 @@
             </div>
                 <button type="submit" class="btn">login</button>
             <div class="register-link"></div>
-                <p>Don't have an account?<a href="signup">Register</a></p>
+                <p>Don't have an account?<a href="register">Register</a></p>
         </form>
     </div>
     <script>

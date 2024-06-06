@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Routing\Controller;
 
 class RegisterController extends Controller
 {
+    public function showRegistrationForm()
+    {
+        return view('register'); 
+    }
+
     public function register(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:2|confirmed',
         ]);
 
         $user = User::create([
@@ -25,6 +30,6 @@ class RegisterController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('login')->with('success', 'Registration successful! Please login with your credentials.');
+        return redirect()->route('login')->with('success', 'Registration successful! Please log in.');
     }
 }

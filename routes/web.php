@@ -11,23 +11,29 @@ Route::get('/', function () {
 
 Route::resource('posts', postController::class);
 
+Route::get('/post', function () {
+    return view('post');
+});
+Route::get('/profile', function () {
+    return view('profile');
+});
+Route::get('/posts', [PostController::class, 'index'])->name('posts');
+
+Route::get('/categories/{category}/tags', [postController::class, 'getTags']);
+
 Route::get('/login', function () {
     return view('login');
 });
 Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/signup', function () {
-    return view('signup');
-})->name('signup');
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
 
-Route::post('/register', [RegisterController::class, 'register'])->name('register');
+Route::get('home', function () {
+    return view('home');
+})->middleware('auth')->name('home');
 
-Route::get('/post', function () {
-    return view('post');
+Route::get('/failed', function () {
+    return view('failed');
 });
-
-Route::get('/profile', function () {
-    return view('profile');
-});
-
-Route::get('/categories/{category}/tags', [postController::class, 'getTags']);

@@ -18,9 +18,9 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect('/home'); // Mengarahkan ke halaman home setelah login berhasil
+            return redirect('/home'); 
         }
 
-        return redirect()->route('home')->with('error', 'Login failed. Please check your credentials.'); // Mengarahkan kembali ke halaman home jika login gagal
+        return redirect()->route('failed')->with('error', 'Login failed. Please check your credentials.'); 
     }
 }
