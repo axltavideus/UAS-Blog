@@ -79,37 +79,8 @@
     <!-- Main Content -->
     <div class="content container">
         <h2>Artikel Terbaru</h2>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <img src="https://via.placeholder.com/400x300?text=Hot+News" class="card-img-top" alt="Hot News">
-                    <div class="card-body">
-                        <h5 class="card-title">Hot News</h5>
-                        <p class="card-text">Ringkasan mengenai berita terkini...</p>
-                        <a href="#" class="btn btn-primary">Baca Selengkapnya</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <img src="https://via.placeholder.com/400x300?text=Sport" class="card-img-top" alt="Sport">
-                    <div class="card-body">
-                        <h5 class="card-title">Sport</h5>
-                        <p class="card-text">Ringkasan mengenai kejadian seputar olahraga...</p>
-                        <a href="#" class="btn btn-primary">Baca Selengkapnya</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <img src="https://via.placeholder.com/400x300?text=Pendidikan" class="card-img-top" alt="Pendidikan">
-                    <div class="card-body">
-                        <h5 class="card-title">Pendidikan</h5>
-                        <p class="card-text">Ringkasan mengenai kejadian seputar pendidikan...</p>
-                        <a href="#" class="btn btn-primary">Baca Selengkapnya</a>
-                    </div>
-                </div>
-            </div>
+        <div id="articles" class="row">
+            <!-- Articles will be inserted here by JavaScript -->
         </div>
     </div>
 
@@ -121,5 +92,58 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        function isAuthenticated() {
+            // Mock authentication check. Replace this with real authentication check.
+            return !!localStorage.getItem('authenticated');
+        }
+
+        function handleReadMore(event, loginUrl, articleUrl) {
+            event.preventDefault();
+            if (isAuthenticated()) {
+                window.location.href = articleUrl;
+            } else {
+                window.location.href = loginUrl + "?redirect=" + encodeURIComponent(articleUrl);
+            }
+        }
+
+        const articles = [
+            {
+                title: "Hot News",
+                summary: "Ringkasan mengenai berita terkini...",
+                url: "/posts/hot-news"
+            },
+            {
+                title: "Sport",
+                summary: "Ringkasan mengenai kejadian seputar olahraga...",
+                url: "/posts/sport"
+            },
+            {
+                title: "Pendidikan",
+                summary: "Ringkasan mengenai kejadian seputar pendidikan...",
+                url: "/posts/pendidikan"
+            }
+        ];
+
+        function loadArticles() {
+            const articlesContainer = document.getElementById('articles');
+            articles.forEach(article => {
+                const articleCard = document.createElement('div');
+                articleCard.classList.add('col-md-4');
+                articleCard.innerHTML = `
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">${article.title}</h5>
+                            <p class="card-text">${article.summary}</p>
+                            <a href="#" class="btn btn-primary" onclick="handleReadMore(event, '/login', '${article.url}')">Baca Selengkapnya</a>
+                        </div>
+                    </div>
+                `;
+                articlesContainer.appendChild(articleCard);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadArticles);
+    </script>
 </body>
 </html>
