@@ -9,8 +9,9 @@
 </head>
 <body>
     <div class="signup">
-        <form action="{{ route('register') }}" method="POST">
-            @csrf <!-- Tambahkan CSRF token -->
+        <form method="POST" action="{{ route('register') }}">
+        @csrf
+        <!-- Form fields here -->
             <h1>Sign-Up</h1>
             <div class="input-box">
                 <input type="email" name="email" placeholder="Email" required>
