@@ -19,6 +19,12 @@
         .dropdown-toggle::after {
             margin-left: 0.5rem;
         }
+        #markdown-preview {
+            text-align: justify;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+        }
     </style>
 </head>
 <body>
