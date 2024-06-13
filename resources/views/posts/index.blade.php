@@ -165,7 +165,68 @@
         <!-- Card Blog -->
         </div>
     </div>
-    
+    <!-- Pagination -->
+    <div class="d-flex justify-content-center mt-3">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                @if ($posts->currentPage() > 2) {{-- Jika halaman saat ini lebih besar dari 2, tampilkan tombol untuk langsung ke halaman pertama --}}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $posts->url(1) }}" aria-label="First">
+                            <span aria-hidden="true">&laquo;&laquo;</span>
+                            <span class="sr-only">First</span>
+                        </a>
+                    </li>
+                @endif
+
+                @if ($posts->previousPageUrl())
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $posts->previousPageUrl() }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                @else
+                    <li class="page-item disabled">
+                        <span class="page-link" aria-hidden="true">&laquo;</span>
+                    </li>
+                @endif
+                
+                @php
+                    $start = max(1, $posts->currentPage() - 2);
+                    $end = min($start + 4, $posts->lastPage());
+                @endphp
+                
+                @for ($i = $start; $i <= $end; $i++)
+                    <li class="page-item {{ ($posts->currentPage() == $i) ? 'active' : '' }}">
+                        <a class="page-link" href="{{ $posts->url($i) }}">{{ $i }}</a>
+                    </li>
+                @endfor
+                
+                @if ($posts->nextPageUrl())
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $posts->nextPageUrl() }}" aria-label="Next">
+                            <span class="sr-only">Next</span>
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                @else
+                    <li class="page-item disabled">
+                        <span class="page-link" aria-hidden="true">&raquo;</span>
+                    </li>
+                @endif
+
+                @if ($posts->currentPage() < ($posts->lastPage() - 1)) {{-- Jika halaman saat ini kurang dari total halaman dikurangi 1, tampilkan tombol untuk langsung ke halaman terakhir --}}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $posts->url($posts->lastPage()) }}" aria-label="Last">
+                            <span aria-hidden="true">&raquo;&raquo;</span>
+                            <span class="sr-only">Last</span>
+                        </a>
+                    </li>
+                @endif
+            </ul>
+        </nav>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
         const tags = {
