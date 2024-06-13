@@ -59,3 +59,5 @@ Route::get('home', function () {
 Route::get('/failed', function () {
     return view('failed');
 });
+
+Route::get('/profile', [LoginController::class, 'profile'])->name('profile')->middleware('auth');
