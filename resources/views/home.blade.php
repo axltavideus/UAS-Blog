@@ -1,17 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landing Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
         }
+
         .navbar {
             margin-bottom: 30px;
+            background-color: #007bff;
         }
+
+        .navbar-brand,
+        .nav-link {
+            color: #fff !important;
+        }
+
         .hero {
             background: url('https://via.placeholder.com/1500x600') no-repeat center center;
             background-size: cover;
@@ -21,45 +32,109 @@
             align-items: center;
             justify-content: center;
             text-align: center;
+            position: relative;
         }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .hero h1,
+        .hero p {
+            z-index: 2;
+        }
+
         .hero h1 {
             font-size: 4rem;
+            animation: fadeInDown 1s;
         }
+
         .hero p {
             font-size: 1.5rem;
+            animation: fadeInUp 1s;
         }
+
         .content {
             padding: 50px 0;
-        }
-        .content h2 {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
         }
+
+        .content h2 {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
         .footer {
-            background: #f8f9fa;
+            background: #343a40;
+            color: #fff;
             padding: 20px 0;
             text-align: center;
         }
+
+        .footer a {
+            color: #007bff;
+            margin: 0 10px;
+        }
+
         .recommendation {
-            background: #f1f1f1;
+            background: #f8f9fa;
             padding: 50px 0;
         }
+
         .recommendation h2 {
             margin-bottom: 30px;
+            text-align: center;
         }
+
         .recommendation .card {
             background: #fff;
             border: none;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
         }
-        .footer a {
-            color: #333;
-            margin: 0 10px;
+
+        .recommendation .card:hover {
+            transform: translateY(-10px);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
+
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" href="#">Blog Saya</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -123,9 +198,9 @@
         <div class="container">
             <p>&copy; 2024 Blog Saya. All Rights Reserved.</p>
             <p>
-                <a href="#">Facebook</a> | 
-                <a href="#">Twitter</a> | 
-                <a href="#">Instagram</a>
+                <a href="#"><img src="https://via.placeholder.com/20x20?text=FB" alt="Facebook"></a>
+                <a href="#"><img src="https://via.placeholder.com/20x20?text=TW" alt="Twitter"></a>
+                <a href="#"><img src="https://via.placeholder.com/20x20?text=IG" alt="Instagram"></a>
             </p>
         </div>
     </footer>
@@ -161,8 +236,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="registerModalLabel">Register</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal
-" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -286,4 +360,5 @@
         });
     </script>
 </body>
+
 </html>
