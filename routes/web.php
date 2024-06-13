@@ -60,4 +60,5 @@ Route::get('/failed', function () {
     return view('failed');
 });
 
-Route::delete('/posts/{post}', [postController::class, 'destroy'])->name('posts.destroy');
+
+Route::get('/profile', [LoginController::class, 'profile'])->name('profile')->middleware('auth');

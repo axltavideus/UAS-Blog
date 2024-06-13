@@ -7,6 +7,11 @@
     <title>Blog | Profile</title>
 </head>
 <body>
-    <h1>Halaman Profile</h1>
+    <h1>User Profile</h1>
+    <div class="profile-info">
+            <p><strong>Name:</strong> {{ $user->name }}</p>
+            <p><strong>Email:</strong> {{ $user->email }}</p>
+            <p><strong>Member Since:</strong> {{ $user->created_at->format('M d, Y') }}</p>
+        </div>
 </body>
 </html>

@@ -73,7 +73,7 @@
         <div class="container-fluid">
             <div class="navbar-nav">
                 <a class="nav-link active" aria-current="page" href="#">Posts</a>
-                <a class="nav-link" href="#">Profile</a>
+                <a class="nav-link" href="profile">Profile</a>
             </div>
             <form class="d-flex ms-auto search-container" role="search" onsubmit="event.preventDefault(); addSearchHistory(); filterPosts();">
                 <input class="form-control me-2" type="search" id="searchInput" placeholder="Search" aria-label="Search" oninput="showSearchSuggestions()">
@@ -81,7 +81,7 @@
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
-    </nav>
+    </nav> 
     <!-- Navbar end -->
 
     <div class="container d-flex flex-column">
