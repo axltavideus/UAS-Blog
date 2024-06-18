@@ -14,7 +14,7 @@ class postController extends Controller
      */
     public function index()
     {
-        $posts = post::all();
+        $posts = Post::paginate(5);
         foreach ($posts as $post) {
             $post->content = Markdown::convertToHtml($post->content);
         }
