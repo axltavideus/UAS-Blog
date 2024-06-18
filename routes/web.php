@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\postController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
 
 Route::get('/', function () {
     return view('home');
@@ -47,12 +49,12 @@ Route::get('/login', function () {
     return view('login');
 });
 Route::post('/login', [LoginController::class, 'login'])->name('login');
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
-Route::get('home', function () {
+Route::get('/home', function () {
     return view('home');
 })->middleware('auth')->name('home');
 
@@ -62,3 +64,23 @@ Route::get('/failed', function () {
 
 
 Route::get('/profile', [LoginController::class, 'profile'])->name('profile')->middleware('auth');
+
+Route::get('/forget', function () {
+    return view('auth.forgot-password');
+})->middleware('guest')->name('password.request');
+
+Route::post('/forget', function (Request $request) {
+    $request->validate(['email' => 'required|email']);
+ 
+    $status = Password::sendResetLink(
+        $request->only('email')
+    );
+ 
+    return $status === Password::RESET_LINK_SENT
+                ? back()->with(['status' => __($status)])
+                : back()->withErrors(['email' => __($status)]);
+})->middleware('guest')->name('password.email');
+
+Route::get('/reset-password/{token}', function (string $token) {
+    return view('auth.reset-password', ['token' => $token]);
+})->middleware('guest')->name('password.reset');
