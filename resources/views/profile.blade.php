@@ -1,4 +1,3 @@
-<!-- resources/views/profile.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,27 +7,61 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Gaya tambahan jika diperlukan -->
     <style>
+        body {
+            background-color: #f0f8ff; /* Light blue background */
+        }
+
         .profile-photo {
             max-width: 150px;
-            border-radius: 50%; /* Membuat foto profil bulat */
-            object-fit: cover; /* Mengatur gambar agar terlihat baik dalam lingkaran */
-            object-position: center; /* Posisi objek gambar di tengah */
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center;
         }
 
         .default-profile-photo {
-            background-color: #ccc; /* Warna abu-abu */
+            background-color: #ccc;
             color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 24px;
-            border-radius: 50%; /* Membuat foto profil default bulat */
-            width: 150px; /* Ukuran yang sama dengan foto profil */
-            height: 150px; /* Ukuran yang sama dengan foto profil */
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+        }
+
+        .logout-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .logout-button button {
+            background-color: #dc3545; /* Bootstrap danger color */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .logout-button button:hover {
+            background-color: #c82333; /* Darker shade of danger color */
         }
     </style>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="/posts">Posts</a>
+                <a class="nav-link" href="profile">Profile</a>
+            </div>
+            <form class="d-flex ms-auto search-container" role="search" onsubmit="event.preventDefault(); addSearchHistory(); filterPosts();">
+                <input class="form-control me-2" type="search" id="searchInput" placeholder="Search" aria-label="Search" oninput="showSearchSuggestions()">
+                <ul class="dropdown-menu" id="searchSuggestions"></ul>
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </nav> 
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-4">
@@ -52,8 +85,14 @@
                         <h5 class="card-title">Informasi Profil</h5>
                         <p><strong>Nama:</strong> {{ $user->name }}</p>
                         <p><strong>Email:</strong> {{ $user->email }}</p>
-                        <!-- Informasi tambahan lainnya -->
+                        <p><strong>Member Since:</strong> {{ $user->created_at->format('M d, Y') }}</p>
                     </div>
+                </div>
+                <div class="logout-button">
+                    <form id="logoutForm" action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button class="btn btn-danger" type="submit">Logout</button> <!-- Used btn-danger class for red color -->
+                    </form>
                 </div>
             </div>
         </div>
