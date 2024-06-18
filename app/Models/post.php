@@ -13,5 +13,5 @@ class post extends Model
     protected $table = 'posts';
 
     // Specify the attributes that are mass assignable
-    protected $fillable = ['title', 'content', 'category', 'tags'];
+    protected $fillable = ['title', 'summary', 'image_url', 'created_at', 'recommended'];
 }

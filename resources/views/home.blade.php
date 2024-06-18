@@ -146,13 +146,13 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="login">Login</a>
+                        <a class="nav-link" href="{{ route('login') }}">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="register">Register</a>
+                        <a class="nav-link" href="{{ route('register') }}">Register</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="posts">Post</a>
+                        <a class="nav-link" href="{{ route('posts.index') }}">Post</a>
                     </li>
                 </ul>
             </div>
@@ -171,8 +171,23 @@
     <div class="content container">
         <h2>Artikel Terbaru</h2>
         <div id="articleCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner" id="carouselItems">
-                <!-- Carousel items will be inserted here by JavaScript -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://via.placeholder.com/800x400" class="d-block w-100" alt="First slide">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Judul Artikel Pertama</h5>
+                        <p>Ringkasan artikel pertama. Deskripsi singkat tentang artikel ini.</p>
+                        <a href="#" class="btn btn-primary">Baca Selengkapnya</a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://via.placeholder.com/800x400" class="d-block w-100" alt="Second slide">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Judul Artikel Kedua</h5>
+                        <p>Ringkasan artikel kedua. Deskripsi singkat tentang artikel ini.</p>
+                        <a href="#" class="btn btn-primary">Baca Selengkapnya</a>
+                    </div>
+                </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#articleCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -188,177 +203,34 @@
     <!-- Recommendation Section -->
     <div class="recommendation container mt-5">
         <h2>Rekomendasi untuk Anda</h2>
-        <div class="row" id="recommendationItems">
-            <!-- Recommendation items will be inserted here by JavaScript -->
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 Blog Saya. All Rights Reserved.</p>
-            <p>
-                <a href="#"><img src="https://via.placeholder.com/20x20?text=FB" alt="Facebook"></a>
-                <a href="#"><img src="https://via.placeholder.com/20x20?text=TW" alt="Twitter"></a>
-                <a href="#"><img src="https://via.placeholder.com/20x20?text=IG" alt="Instagram"></a>
-            </p>
-        </div>
-    </footer>
-
-    <!-- Login Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="loginEmail" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="loginEmail" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="loginPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="loginPassword" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Login</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Register Modal -->
-    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="registerModalLabel">Register</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="registerName" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="registerName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="registerEmail" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="registerEmail" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="registerPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="registerPassword" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Register</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script>
-        function isAuthenticated() {
-            // Mock authentication check. Replace this with real authentication check.
-            return !!localStorage.getItem('authenticated');
-        }
-
-        function handleReadMore(event, loginUrl, articleUrl) {
-            event.preventDefault();
-            if (isAuthenticated()) {
-                window.location.href = articleUrl;
-            } else {
-                window.location.href = loginUrl + "?redirect=" + encodeURIComponent(articleUrl);
-            }
-        }
-
-        const articles = [
-            {
-                title: "Hot News",
-                summary: "Ringkasan mengenai berita terkini...",
-                url: "/posts/hot-news",
-                imageUrl: "https://via.placeholder.com/1500x600?text=Hot+News"
-            },
-            {
-                title: "Sport",
-                summary: "Ringkasan mengenai kejadian seputar olahraga...",
-                url: "/posts/sport",
-                imageUrl: "https://via.placeholder.com/1500x600?text=Sport"
-            },
-            {
-                title: "Pendidikan",
-                summary: "Ringkasan mengenai kejadian seputar pendidikan...",
-                url: "/posts/pendidikan",
-                imageUrl: "https://via.placeholder.com/1500x600?text=Pendidikan"
-            }
-        ];
-
-        function loadArticles() {
-            const carouselItemsContainer = document.getElementById('carouselItems');
-            const articleCarousel = document.getElementById('articleCarousel');
-            articles.forEach((article, index) => {
-                const carouselItem = document.createElement('div');
-                carouselItem.classList.add('carousel-item');
-                if (index === 0) carouselItem.classList.add('active');
-                carouselItem.innerHTML = `
-                    <img src="${article.imageUrl}" class="d-block w-100" alt="${article.title}">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>${article.title}</h5>
-                        <p>${article.summary}</p>
-                        <a href="#" class="btn btn-primary" onclick="handleReadMore(event, '/login', '${article.url}')">Baca Selengkapnya</a>
-                    </div>
-                `;
-                carouselItemsContainer.appendChild(carouselItem);
-            });
-            if (articles.length > 1) {
-                articleCarousel.classList.add('carousel');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', loadArticles);
-
-        // Rekomendasi Artikel
-        const recommendationItemsContainer = document.getElementById('recommendationItems');
-        const recommendationArticles = [
-            {
-                title: "Tips Hemat Energi di Rumah",
-                summary: "Bagaimana cara menghemat energi di rumah Anda...",
-                url: "/posts/tips-hemat-energi",
-                imageUrl: "https://via.placeholder.com/300x200?text=Tips+Hemat+Energi"
-            },
-            {
-                title: "Mengenal Jenis-Jenis Bahan Daur Ulang",
-                summary: "Mengapa daur ulang penting dan apa saja jenisnya...",
-                url: "/posts/jenis-bahan-daur-ulang",
-                imageUrl: "https://via.placeholder.com/300x200?text=Jenis+Bahan+Daur+Ulang"
-            },
-            {
-                title: "Cara Memulai Kebun Sayur di Rumah",
-                summary: "Langkah-langkah sederhana untuk memulai kebun sayur...",
-                url: "/posts/kebun-sayur-di-rumah",
-                imageUrl: "https://via.placeholder.com/300x200?text=Kebun+Sayur+di+Rumah"
-            }
-        ];
-
-        recommendationArticles.forEach((article) => {
-            const recommendationItem = document.createElement('div');
-            recommendationItem.classList.add('col-md-4', 'mb-3');
-            recommendationItem.innerHTML = `
+        <div class="row">
+            <div class="col-md-4 mb-3">
                 <div class="card">
-                    <img src="${article.imageUrl}" class="card-img-top" alt="${article.title}">
+                    <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">${article.title}</h5>
-                        <p class="card-text">${article.summary}</p>
-                        <a href="#" class="btn btn-primary" onclick="handleReadMore(event, '/login', '${article.url}')">Baca Selengkapnya</a>
+                        <h5 class="card-title">Judul Artikel Rekomendasi Pertama</h5>
+                        <p class="card-text">Ringkasan artikel rekomendasi pertama.</p>
+                        <a href="#" class="btn btn-primary">Baca Selengkapnya</a>
                     </div>
                 </div>
-            `;
-            recommendationItemsContainer.appendChild(recommendationItem);
-        });
-    </script>
-</body>
-
-</html>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Judul Artikel Rekomendasi Kedua</h5>
+                        <p class="card-text">Ringkasan artikel rekomendasi kedua.</p>
+                        <a href="#" class="btn btn-primary">Baca Selengkapnya</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Judul Artikel Rekomendasi Ketiga</h5>
+                        <p class="card-text">Ringkasan artikel rekomendasi ketiga.</p>
+                        <a href="#" class="btn btn-primary">Baca Selengkapnya</a>
+                    </div>
+                </div>
+           
