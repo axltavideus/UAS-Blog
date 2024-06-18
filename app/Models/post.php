@@ -14,4 +14,9 @@ class post extends Model
 
     // Specify the attributes that are mass assignable
     protected $fillable = ['title', 'content', 'category', 'tags'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

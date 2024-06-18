@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\postController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ProfileController;
 
 Route::get('/', function () {
     return view('home');
@@ -36,9 +37,7 @@ Route::get('/posts/{post}', [PostController::class, 'showPost'])->name('posts.sh
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
-Route::get('/profile', function () {
-    return view('profile');
-});
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 
 Route::get('/categories/{category}/tags', [postController::class, 'getTags']);
@@ -61,3 +60,4 @@ Route::get('/failed', function () {
 });
 
 Route::delete('/posts/{post}', [postController::class, 'destroy'])->name('posts.destroy');
+
