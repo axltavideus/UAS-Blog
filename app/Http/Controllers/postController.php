@@ -83,8 +83,16 @@ class postController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
+
+        // Periksa apakah pengguna saat ini adalah user dengan ID 4
+        if(auth()->user()->id !== 4) {
+            return redirect()->route('posts.index')->with('error', 'Unauthorized action.');
+        }
+
         return view('posts.edit', ['post' => $post]);
     }
+
+
     /**
      * Update the specified resource in storage.
      */

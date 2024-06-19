@@ -322,6 +322,17 @@
                 suggestionsDropdown.style.display = 'none';
             }
         }
+        <div class="post-details">
+            <h2>{{ $post->title }}</h2>
+            <p>{!! $post->content !!}</p>
+            
+            @auth
+                @if(auth()->user()->id === 4)
+                    <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">Edit Post</a>
+                @endif
+            @endauth
+        </div>
+
 
         document.addEventListener('click', function(event) {
             const suggestionsDropdown = document.getElementById('searchSuggestions');
