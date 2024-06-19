@@ -28,7 +28,7 @@ class LoginController extends Controller
     {
         Auth::logout();
         $request->session()->invalidate();
-        $request->session()->regenarateToken();
+        $request->session()->regenerateToken();
 
         return redirect('/');
     }
@@ -38,5 +38,4 @@ class LoginController extends Controller
         $user = Auth::user();
         return view('profile', compact('user'));
     }
-
 }
