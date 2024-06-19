@@ -13,10 +13,5 @@ class post extends Model
     protected $table = 'posts';
 
     // Specify the attributes that are mass assignable
-    protected $fillable = ['title', 'content', 'category', 'tags'];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    protected $fillable = ['title', 'summary', 'image_url', 'created_at', 'recommended'];
 }

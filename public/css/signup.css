@@ -12,12 +12,12 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: white;
+    background-color: grey;
 }
 
 .signup {
     width: 420px;
-    background: #007bff;
+    background: black;
     color: #fff;
     border-radius: 10px;
     padding: 30px 50px;
