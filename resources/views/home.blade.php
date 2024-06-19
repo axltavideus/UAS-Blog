@@ -208,7 +208,7 @@
                 <div class="card">
                     <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Judul Artikel Rekomendasi Pertama</h5>
+                        <h5 class="card-title">Artikel Menarik 1</h5>
                         <p class="card-text">Ringkasan artikel rekomendasi pertama.</p>
                         <a href="#" class="btn btn-primary">Baca Selengkapnya</a>
                     </div>
@@ -218,7 +218,7 @@
                 <div class="card">
                     <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Judul Artikel Rekomendasi Kedua</h5>
+                        <h5 class="card-title">Artikel Menarik 2</h5>
                         <p class="card-text">Ringkasan artikel rekomendasi kedua.</p>
                         <a href="#" class="btn btn-primary">Baca Selengkapnya</a>
                     </div>
@@ -228,7 +228,7 @@
                 <div class="card">
                     <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Judul Artikel Rekomendasi Ketiga</h5>
+                        <h5 class="card-title">Artikel Menarik 3</h5>
                         <p class="card-text">Ringkasan artikel rekomendasi ketiga.</p>
                         <a href="#" class="btn btn-primary">Baca Selengkapnya</a>
                     </div>
