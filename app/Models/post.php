@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class post extends Model
+class Post extends Model
 {
     use HasFactory;
 
@@ -13,5 +13,5 @@ class post extends Model
     protected $table = 'posts';
 
     // Specify the attributes that are mass assignable
-    protected $fillable = ['title', 'summary', 'image_url', 'created_at', 'recommended'];
+    protected $fillable = ['title', 'summary', 'content', 'recommended'];
 }

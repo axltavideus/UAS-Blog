@@ -206,7 +206,6 @@
         <div class="row">
             <div class="col-md-4 mb-3">
                 <div class="card">
-                    <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Artikel Menarik 1</h5>
                         <p class="card-text">Ringkasan artikel rekomendasi pertama.</p>
@@ -216,7 +215,6 @@
             </div>
             <div class="col-md-4 mb-3">
                 <div class="card">
-                    <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Artikel Menarik 2</h5>
                         <p class="card-text">Ringkasan artikel rekomendasi kedua.</p>
@@ -226,11 +224,23 @@
             </div>
             <div class="col-md-4 mb-3">
                 <div class="card">
-                    <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Artikel Menarik 3</h5>
                         <p class="card-text">Ringkasan artikel rekomendasi ketiga.</p>
                         <a href="#" class="btn btn-primary">Baca Selengkapnya</a>
                     </div>
                 </div>
-           
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer mt-5">
+        <div class="container">
+            <p>&copy; 2024 Blog Saya. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
