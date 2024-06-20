@@ -327,7 +327,7 @@
             <p>{!! $post->content !!}</p>
             
             @auth
-                @if(auth()->user()->id === 4)
+                @if(auth()->user()->id === 1)
                     <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">Edit Post</a>
                 @endif
             @endauth
