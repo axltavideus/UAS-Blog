@@ -85,7 +85,7 @@ class postController extends Controller
         $post = Post::find($id);
 
         // Periksa apakah pengguna saat ini adalah user dengan ID 4
-        if(auth()->user()->id !== 4) {
+        if(auth()->user()->id !== 1) {
             return redirect()->route('posts.index')->with('error', 'Unauthorized action.');
         }
 
