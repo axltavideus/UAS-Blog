@@ -149,8 +149,8 @@
                 @foreach ($posts as $post)
                     <div class="card mb-3 post-card" data-category="{{ $post->category }}" data-tags="{{ $post->tags }}">
                         <div class="card-body">
-                            <h5 class="card-title">{!! $post->title !!}</h5>
-                            <p class="card-text">{!! $post->content !!}</p>
+                            <h5 class="card-title">{{ $post->title }}</h5>
+                            <p class="card-text">{{ $post->content }}</p>
                             <a href="{{ route('posts.show', $post->id) }}">View</a>
                             <div class="d-flex justify-content-end">
                                 <a href="{{ route('posts.edit', $post) }}" class="btn btn-warning">Edit</a>
@@ -218,7 +218,7 @@
                 @if ($posts->currentPage() < ($posts->lastPage() - 1)) {{-- Jika halaman saat ini kurang dari total halaman dikurangi 1, tampilkan tombol untuk langsung ke halaman terakhir --}}
                     <li class="page-item">
                         <a class="page-link" href="{{ $posts->url($posts->lastPage()) }}" aria-label="Last">
-                            <span aria-hidden="true">&raquo;&raquo;</span>
+                            <span aria-hidden="true">&laquo;&raquo;</span>
                             <span class="sr-only">Last</span>
                         </a>
                     </li>
@@ -226,134 +226,103 @@
             </ul>
         </nav>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- End Pagination -->
+    </div>
+    
     <script>
-        const tags = {
-            sport: ['Football', 'Basketball', 'Olympics'],
-            pendidikan: ['Education Policy', 'E-learning', 'EdTech'],
-            teknologi: ['AI', 'Gadgets', 'Software Updates'],
-            berita_terkini: ['Breaking News', 'Politics', 'Global Events']
+        const postsContainer = document.getElementById('posts-container');
+        const noPostsMessage = document.getElementById('no-posts-message');
+        const postCategorySelect = document.getElementById('postCategory');
+        const postTagsSelect = document.getElementById('postTags');
+        const posts = document.querySelectorAll('.post-card');
+        const categories = {
+            'sport': ['all', 'Soccer', 'Basketball', 'Tennis', 'Cricket'],
+            'pendidikan': ['all', 'Sekolah', 'Kuliah', 'Belajar Online', 'Beasiswa'],
+            'teknologi': ['all', 'AI', 'Blockchain', 'Cybersecurity', 'Gadget'],
+            'berita_terkini': ['all', 'Politik', 'Bencana Alam', 'Kesehatan', 'Pemerintahan']
         };
 
         function updateTagsAndFilterPosts() {
-            const selectedCategory = document.getElementById('postCategory').value;
-            const tagsDropdown = document.getElementById('postTags');
-            tagsDropdown.innerHTML = '<option value="all" selected>All</option>';
-
-            if (selectedCategory !== 'all' && tags[selectedCategory]) {
-                tags[selectedCategory].forEach(tag => {
-                    const option = document.createElement('option');
-                    option.value = tag;
-                    option.textContent = tag;
-                    tagsDropdown.appendChild(option);
-                });
-            }
-
+            const selectedCategory = postCategorySelect.value;
+            const tags = categories[selectedCategory] || ['all'];
+            
+            postTagsSelect.innerHTML = tags.map(tag => `<option value="${tag}">${tag}</option>`).join('');
             filterPosts();
         }
 
         function filterPosts() {
-            const selectedCategory = document.getElementById('postCategory').value;
-            const selectedTag = document.getElementById('postTags').value;
             const searchInput = document.getElementById('searchInput').value.toLowerCase();
-            const postCards = document.querySelectorAll('.post-card');
+            const selectedCategory = postCategorySelect.value;
+            const selectedTag = postTagsSelect.value;
+
             let visiblePostsCount = 0;
 
-            postCards.forEach(card => {
-                const cardCategory = card.getAttribute('data-category');
-                const cardTags = card.getAttribute('data-tags').split(',');
-                const cardTitle = card.querySelector('.card-title').textContent.toLowerCase();
-                const cardContent = card.querySelector('.card-text').textContent.toLowerCase();
+            posts.forEach(post => {
+                const postCategory = post.getAttribute('data-category');
+                const postTags = post.getAttribute('data-tags').split(',').map(tag => tag.trim());
 
-                const categoryMatch = (selectedCategory === 'all' || cardCategory === selectedCategory);
-                const tagMatch = (selectedTag === 'all' || cardTags.includes(selectedTag));
-                const searchMatch = (cardTitle.includes(searchInput) || cardContent.includes(searchInput));
+                const matchesSearch = post.querySelector('.card-title').textContent.toLowerCase().includes(searchInput) || 
+                                      post.querySelector('.card-text').textContent.toLowerCase().includes(searchInput);
 
-                if (categoryMatch && tagMatch && searchMatch) {
-                    card.style.display = 'block';
+                const matchesCategory = selectedCategory === 'all' || postCategory === selectedCategory;
+                const matchesTag = selectedTag === 'all' || postTags.includes(selectedTag);
+
+                if (matchesSearch && matchesCategory && matchesTag) {
+                    post.style.display = 'block';
                     visiblePostsCount++;
                 } else {
-                    card.style.display = 'none';
+                    post.style.display = 'none';
                 }
             });
 
-            const noPostsMessage = document.getElementById('no-posts-message');
-            if (visiblePostsCount === 0) {
-                noPostsMessage.style.display = 'block';
-            } else {
-                noPostsMessage.style.display = 'none';
-            }
+            noPostsMessage.style.display = visiblePostsCount === 0 ? 'block' : 'none';
         }
 
         function addSearchHistory() {
-            const searchInput = document.getElementById('searchInput').value.trim();
-            if (!searchInput) return;
-
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
             let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-            if (!searchHistory.includes(searchInput)) {
-                searchHistory.push(searchInput);
+            if (searchInput && !searchHistory.includes(searchInput)) {
+                searchHistory.unshift(searchInput);
+                if (searchHistory.length > 5) {
+                    searchHistory.pop();
+                }
                 localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
             }
+            showSearchSuggestions();
         }
 
         function showSearchSuggestions() {
             const searchInput = document.getElementById('searchInput').value.toLowerCase();
-            let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+            const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+            const filteredSuggestions = searchHistory.filter(item => item.includes(searchInput));
+
             const suggestionsDropdown = document.getElementById('searchSuggestions');
-            suggestionsDropdown.innerHTML = '';
-
-            if (searchInput) {
-                const filteredSuggestions = searchHistory.filter(item => item.toLowerCase().includes(searchInput));
-                filteredSuggestions.forEach(suggestion => {
-                    const suggestionItem = document.createElement('li');
-                    suggestionItem.className = 'dropdown-item';
-                    suggestionItem.textContent = suggestion;
-                    suggestionItem.onclick = () => {
-                        document.getElementById('searchInput').value = suggestion;
-                        filterPosts();
-                        suggestionsDropdown.style.display = 'none';
-                    };
-                    suggestionsDropdown.appendChild(suggestionItem);
-                });
-
-                suggestionsDropdown.style.display = filteredSuggestions.length ? 'block' : 'none';
+            if (filteredSuggestions.length > 0 && searchInput) {
+                suggestionsDropdown.innerHTML = filteredSuggestions.map(suggestion => 
+                    `<li class="dropdown-item" onclick="selectSuggestion('${suggestion}')">${suggestion}</li>`).join('');
+                suggestionsDropdown.classList.add('show');
             } else {
-                suggestionsDropdown.style.display = 'none';
+                suggestionsDropdown.classList.remove('show');
             }
         }
-        <div class="post-details">
-            <h2>{{ $post->title }}</h2>
-            <p>{!! $post->content !!}</p>
-            
-            @auth
-                @if(auth()->user()->id === 1)
-                    <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">Edit Post</a>
-                @endif
-            @endauth
-        </div>
 
+        function selectSuggestion(suggestion) {
+            document.getElementById('searchInput').value = suggestion;
+            filterPosts();
+            document.getElementById('searchSuggestions').classList.remove('show');
+        }
 
         document.addEventListener('click', function(event) {
             const suggestionsDropdown = document.getElementById('searchSuggestions');
-            if (!suggestionsDropdown.contains(event.target) && !document.getElementById('searchInput').contains(event.target)) {
-                suggestionsDropdown.style.display = 'none';
+            if (!event.target.closest('.search-container')) {
+                suggestionsDropdown.classList.remove('show');
             }
         });
+
+        window.addEventListener('DOMContentLoaded', function() {
+            updateTagsAndFilterPosts();
+            showSearchSuggestions();
+        });
     </script>
-    @if(session('success'))
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success!',
-                    text: '{{ session('success') }}',
-                    showConfirmButton: false,
-                    timer: 2000 // millisecond
-                });
-            });
-        </script>
-    @endif
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
