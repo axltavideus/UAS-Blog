@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\post;
 use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\Support\Facades\Session;
+use App\Http\Middleware\AuthenticateMiddleware;
 
 class postController extends Controller
 {
