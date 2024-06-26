@@ -153,7 +153,9 @@
                             <p class="card-text">{!! $post->content !!}</p>
                             <a href="{{ route('posts.show', $post->id) }}">View</a>
                             <div class="d-flex justify-content-end">
-                                <a href="{{ route('posts.edit', $post) }}" class="btn btn-warning">Edit</a>
+                                @if(Auth::check() && Auth::user()->email == 'admin@gmail.com')
+                                    <a href="{{ route('posts.edit', $post) }}" class="btn btn-warning">Edit</a>
+                                @endif
                             </div>
                         </div>
                     </div>
