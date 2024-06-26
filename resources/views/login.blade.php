@@ -25,7 +25,6 @@
             </div>
             <div class="remember-forgot">
                 <label><input type="checkbox">Remember Me</label>
-                <a href="{{ route('forgot-password') }}">Forgot Password</a>
             </div>
                 <button type="submit" class="btn">login</button>
             <div class="register-link"></div>
