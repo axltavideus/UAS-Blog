@@ -55,11 +55,6 @@
                 <a class="nav-link active" aria-current="page" href="/posts">Posts</a>
                 <a class="nav-link" href="profile">Profile</a>
             </div>
-            <form class="d-flex ms-auto search-container" role="search" onsubmit="event.preventDefault(); addSearchHistory(); filterPosts();">
-                <input class="form-control me-2" type="search" id="searchInput" placeholder="Search" aria-label="Search" oninput="showSearchSuggestions()">
-                <ul class="dropdown-menu" id="searchSuggestions"></ul>
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
         </div>
     </nav> 
     <div class="container mt-5">
