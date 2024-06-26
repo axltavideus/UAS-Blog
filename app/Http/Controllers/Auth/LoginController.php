@@ -66,7 +66,7 @@ class LoginController extends Controller
             return redirect('/posts'); 
         }
 
-        return redirect()->route('failed')->with('error', 'Login failed. Please check your credentials.'); 
+        return redirect()->route('login')->with('error', 'Login failed. Please check your credentials.'); 
     }
 
     public function logout(Request $request)
