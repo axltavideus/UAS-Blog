@@ -13,19 +13,12 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-}
-
-
-class HomeController extends Controller
-{
-    public function index()
+    protected function getRandomPosts()
     {
-        $latestPosts = Post::orderBy('created_at', 'desc')->take(3)->get();
-        $recommendedPosts = Post::where('recommended', true)->take(3)->get();
-
-        // Debugging data
-        dd($latestPosts, $recommendedPosts);
-
-        return view('home', compact('latestPosts', 'recommendedPosts'));
+        return Post::inRandomOrder()->take(3)->get();
     }
+
 }
+
+
+

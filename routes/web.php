@@ -80,3 +80,5 @@ Route::group(['middleware' => AuthenticateMiddleware::class], function () {
 });
 
 Route::get('/profile', [LoginController::class, 'profile'])->name('profile')->middleware('auth');
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
