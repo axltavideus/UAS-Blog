@@ -66,6 +66,14 @@
         .dropdown-item:hover {
             background-color: #e9ecef;
         }
+
+        .truncate-text {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 100%;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -150,7 +158,7 @@
                     <div class="card mb-3 post-card" data-category="{{ $post->category }}" data-tags="{{ $post->tags }}">
                         <div class="card-body">
                             <h5 class="card-title">{!! $post->title !!}</h5>
-                            <p class="card-text">{!! $post->content !!}</p>
+                            <div class="card-text truncate-text">{!! $post->content !!}</div>
                             <a href="{{ route('posts.show', $post->id) }}">View</a>
                             <div class="d-flex justify-content-end">
                                 <a href="{{ route('posts.edit', $post) }}" class="btn btn-warning">Edit</a>
@@ -201,11 +209,10 @@
                         <a class="page-link" href="{{ $posts->url($i) }}">{{ $i }}</a>
                     </li>
                 @endfor
-                
+
                 @if ($posts->nextPageUrl())
                     <li class="page-item">
                         <a class="page-link" href="{{ $posts->nextPageUrl() }}" aria-label="Next">
-                            <span class="sr-only">Next</span>
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
@@ -328,6 +335,29 @@
             if (!suggestionsDropdown.contains(event.target) && !document.getElementById('searchInput').contains(event.target)) {
                 suggestionsDropdown.style.display = 'none';
             }
+        });
+
+        function truncateText(text, maxLength) {
+            let div = document.createElement('div');
+            div.innerHTML = text;
+
+            if (div.textContent.length <= maxLength) {
+                return text;
+            }
+
+            let truncated = div.textContent.slice(0, maxLength) + '...';
+            div.textContent = truncated;
+            return div.innerHTML;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const truncateLength = 100; // Set the character limit
+            const postContents = document.querySelectorAll('.card-text');
+            postContents.forEach(content => {
+                const originalText = content.innerHTML;
+                const truncatedText = truncateText(originalText, truncateLength);
+                content.innerHTML = truncatedText;
+            });
         });
     </script>
     @if(session('success'))
