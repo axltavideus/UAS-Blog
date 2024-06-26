@@ -216,6 +216,7 @@
                     <li class="page-item">
                         <a class="page-link" href="{{ $posts->nextPageUrl() }}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
                         </a>
                     </li>
                 @else
@@ -339,6 +340,29 @@
             }
         });
 
+        function truncateText(text, maxLength) {
+            let div = document.createElement('div');
+            div.innerHTML = text;
+
+            if (div.textContent.length <= maxLength) {
+                return text;
+            }
+
+            let truncated = div.textContent.slice(0, maxLength) + '...';
+            div.textContent = truncated;
+            return div.innerHTML;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const truncateLength = 100; // Set the character limit
+            const postContents = document.querySelectorAll('.card-text');
+            postContents.forEach(content => {
+                const originalText = content.innerHTML;
+                const truncatedText = truncateText(originalText, truncateLength);
+                content.innerHTML = truncatedText;
+            });
+        });
+        
         function truncateText(text, maxLength) {
             let div = document.createElement('div');
             div.innerHTML = text;
