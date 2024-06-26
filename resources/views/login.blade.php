@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="css/login.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Blog | Login</title>
+    <!-- Add SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="login">
@@ -17,8 +19,8 @@
                 <i class='bx bxs-user'></i>
             </div>
             <div class="input-box">
-                <input type="Password" id="password" name="password" placeholder="Password"required>
-                <i class='bx bxs-lock-alt' ></i>
+                <input type="Password" id="password" name="password" placeholder="Password" required>
+                <i class='bx bxs-lock-alt'></i>
             </div>
             <div class="showpassword">
                 <input type="checkbox" id="showPasswordCheckbox" onclick="showHidePassword()">
@@ -26,11 +28,16 @@
             <div class="remember-forgot">
                 <label><input type="checkbox">Remember Me</label>
             </div>
-                <button type="submit" class="btn">login</button>
-            <div class="register-link"></div>
-                <p>Don't have an account?<a href="register">Register</a></p>
+            <button type="submit" class="btn">Login</button>
+            <div class="register-link">
+                <p>Don't have an account? <a href="register">Register</a></p>
+            </div>
         </form>
     </div>
+
+    <!-- Add SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         function showHidePassword() {
             var passwordInput = document.getElementById("password");
@@ -41,6 +48,18 @@
                 passwordInput.type = "password";
             }
         }
+
+        // Check if there's an error message in the session
+        @if (session('error'))
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Login Error',
+                    text: '{{ session('error') }}',
+                    confirmButtonText: 'OK'
+                });
+            });
+        @endif
     </script>
 </body>
 </html>
