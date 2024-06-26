@@ -14,19 +14,36 @@
         <!-- Form fields here -->
             <h1>Sign-Up</h1>
             <div class="input-box">
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
                 <i class='bx bxs-user'></i>
+                @error('email')
+                    <span class="error">{{ $message }}</span>
+                @enderror
             </div>
             <div class="input-box">
-                <input type="text" name="name" placeholder="User Name" required>
+                <input type="text" name="name" placeholder="User Name" value="{{ old('name') }}" required>
+                <i class='bx bxs-user'></i>
+                @error('name')
+                    <span class="error">{{ $message }}</span>
+                @enderror
             </div>
             <div class="input-box">
                 <input type="password" name="password" placeholder="Password" required>
+                <i class='bx bxs-lock-alt' ></i>
+                @error('password')
+                    <span class="error">{{ $message }}</span>
+                @enderror
             </div>
             <div class="input-box">
                 <input type="password" name="password_confirmation" placeholder="Confirm Password" required>
+                <i class='bx bxs-lock-alt' ></i>
+                @error('password_confirmation')
+                    <span class="error">{{ $message }}</span>
+                @enderror
             </div>
-            <input type="checkbox" onclick="showHide()">
+            <div class="showpassword">
+                <input type="checkbox" id="showPasswordCheckbox" onclick="showHidePassword()">
+            </div>
             <div>
                 <button type="submit" class="btn">Create account</button>
             </div>
