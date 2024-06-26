@@ -91,7 +91,8 @@
         </div>
     </nav> 
     <!-- Navbar end -->
-
+     
+    @if(Auth::check() && Auth::user()->email == 'admin@gmail.com')
     <div class="container d-flex flex-column">
         <div class="d-table-cell align-middle pt-3">
             <div class="card">
@@ -111,7 +112,8 @@
         </div>
     </div>
     <!-- Card End -->
-    
+    @endif
+
     <!-- Filter Category & Tags Start -->
     <div class="container d-flex flex-column">
         <div class="d-table-cell align-middle pt-3">
