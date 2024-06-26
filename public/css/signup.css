@@ -21,11 +21,13 @@ body {
     color: #fff;
     border-radius: 10px;
     padding: 30px 50px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .signup h1{
     font-size: 36px;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .signup .input-box {
@@ -46,14 +48,23 @@ body {
     font-size: 16px;
     color: #fff;
     padding: 20px 45px 20px 20px;
+    transition: border-color 0.3s ease;
 }
 
 .input-box input::placeholder{
     color: #fff;
 }
 
-.input-box i{
+.input-box input:focus {
+    border-color: rgba(255, 255, 255, 0.4); 
+}
 
+.input-box i{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
 }
 
 .signup .btn {
@@ -68,6 +79,15 @@ body {
     font-size: 16px;
     color: #333;
     font-weight: 600;
+    transition: background-color 0.3s ease;
 }
 
+.signup .btn:hover {
+    background-color: #e0e0e0; 
+}
 
+.error {
+    color: #dc3545; 
+    font-size: 14px;
+    margin-top: 5px; 
+}
