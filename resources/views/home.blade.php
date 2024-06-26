@@ -213,10 +213,10 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1kA95y.img?w=612&h=343&m=6&x=202&y=49&s=202&d=202"
+                    <img src="https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1oTqoO.img?w=768&h=432&m=6&x=82&y=123&s=540&d=87"
                         class="d-block w-100" alt="Third slide">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>3 Perusahaan RI Ini Punya Cuan Terbesar di Tengah Pandemi Corona</h5>
+                        <h5> 25 Tahun Baru Tahu Anak Adopsi, Nurraidah Cari Ortu Kandung, Ayah Masih Hidup, Nasib Ibu Buat Pilu</h5>
                         <a href="#" class="btn btn-primary">Baca Selengkapnya</a>
                     </div>
                 </div>
