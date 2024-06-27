@@ -24,9 +24,7 @@
             </div>
             <div class="showpassword">
                 <input type="checkbox" id="showPasswordCheckbox" onclick="showHidePassword()">
-            </div>
-            <div class="remember-forgot">
-                <label><input type="checkbox">Remember Me</label>
+                <label for="showPasswordCheckbox">Show Password</label>
             </div>
             <button type="submit" class="btn">Login</button>
             <div class="register-link">
